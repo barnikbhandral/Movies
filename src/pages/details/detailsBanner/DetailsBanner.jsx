@@ -14,10 +14,7 @@ import PosterFallback from "../../../assets/no-poster.png";
 import { PlayIcon } from "../Playbtn.jsx";
 import VideoPopup from "../../../components/vedioPopup/VedioPopup.jsx";
 
-
-
 const DetailsBanner = ({ video, crew }) => {
-
   const [show, setShow] = useState(false);
   const [videoId, setVideoId] = useState(null);
 
@@ -45,7 +42,7 @@ const DetailsBanner = ({ video, crew }) => {
           {!!data && (
             <React.Fragment>
               <div className="backdrop-img">
-                <Img src={url.backdrop + data.backdrop_path} />
+                <Img src={url?.backdrop + data?.backdrop_path} />
               </div>
               <div className="opacity-layer"></div>
               <ContentWrapper>
@@ -69,10 +66,14 @@ const DetailsBanner = ({ video, crew }) => {
                     <Genres data={_genres} />
 
                     <div className="row">
-                      <CircleRating rating={data?.vote_average.toFixed(1)} />
-                      <div className="playbtn" onClick={() => {
-                        setShow(true); 
-                        setVideoId(video.key)}}>
+                      <CircleRating rating={data?.vote_average?.toFixed(1)} />
+                      <div
+                        className="playbtn"
+                        onClick={() => {
+                          setShow(true);
+                          setVideoId(video.key);
+                        }}
+                      >
                         <PlayIcon />
                         <span className="text">Watch Trailer</span>
                       </div>
@@ -134,7 +135,7 @@ const DetailsBanner = ({ video, crew }) => {
                     )}
                     {data?.created_by?.length > 0 && (
                       <div className="info">
-                        <span className="text bold">Creator: {" "}</span>
+                        <span className="text bold">Creator: </span>
                         <span className="text">
                           {data?.created_by?.map((d, i) => (
                             <span key={i}>
@@ -152,7 +153,6 @@ const DetailsBanner = ({ video, crew }) => {
                   setShow={setShow}
                   videoId={videoId}
                   setVideoId={setVideoId}
-
                 />
               </ContentWrapper>
             </React.Fragment>
