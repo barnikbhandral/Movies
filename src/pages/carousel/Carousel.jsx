@@ -17,7 +17,7 @@ import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import CircleRating from "../../components/circleRating/CircleRating";
 import Genres from "../../components/genres/Genres";
 
-const Carousel = ({ data, loading }) => {
+const Carousel = ({ data, loading,mediaType }) => {
     const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
     const navigate = useNavigate();
@@ -63,10 +63,10 @@ const Carousel = ({ data, loading }) => {
                 ? url.poster + item?.poster_path
                 : PosterFallback;
               return (
-                <div key={item.id} className="carouselItem" onClick={() => navigate(`/${item.media_type}/${item.id}`)}>
+                <div key={item.id} className="carouselItem" onClick={() => navigate(`/${mediaType}/${item.id}`)}>
                   <div className="posterBlock">
                     <Img src={posterUrl} />
-                    <CircleRating rating={item.vote_average.toFixed(1)}/>
+                    <CircleRating rating={item.vote_average?.toFixed(1)}/>
                     <Genres data={item.genre_ids.slice(0, 2)} />
                   </div>
                   <div className="textBlock">
