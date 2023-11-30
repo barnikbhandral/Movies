@@ -1,3 +1,7 @@
+/* The line `import React, { useRef } from "react";` is importing the `React` library and the `useRef`
+hook from the `react` package. */
+/* The line `import React, { useRef } from "react";` is importing the `React` library and the `useRef`
+hook from the `react` package. */
 import React, { useRef } from "react";
 import {
   BsFillArrowLeftCircleFill,
@@ -14,12 +18,20 @@ import CircleRating from "../../components/circleRating/CircleRating";
 import Genres from "../../components/genres/Genres";
 
 const Carousel = ({ data, loading }) => {
-  //   const carouselContainer = useRef();
+    const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
-  //   const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const navigation = () => {
-    dir;
+  const navigation = (dir) => {
+    const container = carouselContainer.current;
+
+    const scrollAmount = dir === "left" ? container.scrollLeft - (container.offsetWidth + 20)
+    : container.scrollLeft + (container.offsetWidth + 20)
+
+    container.scrollTo({
+      left:scrollAmount,
+      behavior : "smooth"
+    })
   };
 
   const skItem = () => {
@@ -45,13 +57,13 @@ const Carousel = ({ data, loading }) => {
           onClick={() => navigation("right")}
         />
         {!loading ? (
-          <div className="carouselItems">
+          <div className="carouselItems" ref={carouselContainer}>
             {data?.map((item) => {
               const posterUrl = item?.poster_path
                 ? url.poster + item?.poster_path
                 : PosterFallback;
               return (
-                <div key={item.id} className="carouselItem">
+                <div key={item.id} className="carouselItem" onClick={() => navigate(`/${item.media_type}/${item.id}`)}>
                   <div className="posterBlock">
                     <Img src={posterUrl} />
                     <CircleRating rating={item.vote_average.toFixed(1)}/>
@@ -82,3 +94,6 @@ const Carousel = ({ data, loading }) => {
 };
 
 export default Carousel;
+
+
+//
