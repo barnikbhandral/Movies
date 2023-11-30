@@ -9,6 +9,7 @@ import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 const HeroBanner = () => {
   const [background, setBackground] = useState("");
   const [query, setQuery] = useState("");
+  const [search, setSearch] = useState(false);
   const navigate = useNavigate();
   const { url } = useSelector((state) => state.home);
 
@@ -23,6 +24,8 @@ const HeroBanner = () => {
 
   const searchQueryHandler = (event) => {
     if (event.key === "Enter" && query.length > 0) {
+      navigate(`/search/${query}`);
+    } else if(search === true){
       navigate(`/search/${query}`);
     }
   };
@@ -47,7 +50,7 @@ const HeroBanner = () => {
               onKeyUp={searchQueryHandler}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <button>Search</button>
+            <button onClick={searchQueryHandler}>Search</button>
           </div>
         </div>
       </ContentWrapper>
